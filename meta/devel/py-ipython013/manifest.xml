@@ -1,0 +1,62 @@
+<?xml version='1.0'?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<service_bundle type='manifest' name='export'>
+  <service name='pkgsrc/ipython' type='service' version='0'>
+    <dependency name='network' grouping='require_all' restart_on='error' type='service'>
+      <service_fmri value='svc:/milestone/network:default'/>
+    </dependency>
+    <dependency name='filesystem-local' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/system/filesystem/local:default'/>
+    </dependency>
+    <dependency name='mdata' grouping='require_all' restart_on='error' type='service'>
+      <service_fmri value='svc:/smartdc/mdata:fetch'/>
+    </dependency>
+    <method_context>
+      <method_credential group='www' user='www'/>
+      <method_environment>
+        <envvar name='PATH' value='/opt/local/bin:/opt/local/sbin:/usr/sbin:/usr/bin'/>
+        <envvar name='IPYTHONDIR' value='/opt/local/share/ipython'/>
+      </method_environment>
+    </method_context>
+    <instance name='controller-engine' enabled='false'>
+      <exec_method name='start' type='method' exec='/opt/local/bin/ipengine --url=%{config/url} --Session.key=%{config/exec_key}' timeout_seconds='60'/>
+      <exec_method name='stop' type='method' exec=':kill' timeout_seconds='60'/>
+      <property_group name='config' type='application'>
+        <propval name='url' type='astring' value=''/>
+        <propval name='exec_key' type='astring' value=''/>
+      </property_group>
+    </instance>
+    <instance name='controller' enabled='false'>
+      <exec_method name='start' type='method' exec='/opt/local/bin/ipcontroller --ip=%{config/ip} --profile=%{config/profile} --reuse' timeout_seconds='60'/>
+      <exec_method name='stop' type='method' exec=':kill' timeout_seconds='60'/>
+      <property_group name='config' type='application'>
+        <propval name='ip' type='astring' value='127.0.0.1'/>
+        <propval name='profile' type='astring' value='default'/>
+      </property_group>
+    </instance>
+    <instance name='cluster-engine' enabled='false'>
+      <exec_method name='start' type='method' exec='/opt/local/bin/ipcluster engines --n=%{config/processes} --profile=%{config/profile} --engines=%{config/engines}' timeout_seconds='60'/>
+      <exec_method name='stop' type='method' exec=':kill' timeout_seconds='60'/>
+      <property_group name='config' type='application'>
+          <propval name='processes' type='integer' value='2'/>
+          <propval name='profile' type='astring' value='default'/>
+          <propval name='engines' type='astring' value='SSH'/>
+      </property_group>
+    </instance>
+    <instance name='cluster' enabled='false'>
+      <exec_method name='start' type='method' exec='/opt/local/bin/ipcluster start --n=%{config/processes} --profile=%{config/profile} --engines=%{config/engines}' timeout_seconds='60'/>
+      <exec_method name='stop' type='method' exec=':kill' timeout_seconds='60'/>
+      <property_group name='config' type='application'>
+        <propval name='processes' type='integer' value='2'/>
+        <propval name='profile' type='astring' value='default'/>
+        <propval name='engines' type='astring' value='SSH'/>
+      </property_group>
+    </instance>
+    <stability value='Unstable'/>
+    <template>
+      <common_name>
+        <loctext xml:lang='C'>IPython</loctext>
+      </common_name>
+    </template>
+  </service>
+</service_bundle>

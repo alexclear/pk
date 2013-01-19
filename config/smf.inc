@@ -91,3 +91,5 @@ SMF_USER.nagios-nrpe=${NAGIOS_USER}
 SMF_GROUP.nagios-nrpe=${NAGIOS_GROUP}
 SMF_HOME.nagios-nrpe=${NAGIOSDIR}
 
+SMF_USER.py27-ipython013=www
+SMF_GROUP.py27-ipython013=www
