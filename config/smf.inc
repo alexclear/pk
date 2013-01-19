@@ -124,3 +124,6 @@ SMF_HOME.nagios-nrpe=${NAGIOSDIR}
 SMF_USER.mongodb=${MONGODB_USER}
 SMF_GROUP.mongodb=${MONGODB_GROUP}
 SMF_HOME.mongodb=${MONGODB_DBPATH}
+
+SMF_USER.py27-ipython013=www
+SMF_GROUP.py27-ipython013=www
