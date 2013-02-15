@@ -12,7 +12,7 @@
       <service_fmri value='svc:/smartdc/mdata:fetch'/>
     </dependency>
     <method_context>
-      <method_credential group='www' user='www'/>
+      <method_credential group='@SMF_GROUP@' user='@SMF_USER@'/>
       <method_environment>
         <envvar name='PATH' value='/opt/local/bin:/opt/local/sbin:/usr/sbin:/usr/bin'/>
         <envvar name='IPYTHONDIR' value='/opt/local/share/ipython'/>
