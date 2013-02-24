@@ -1,0 +1,19 @@
+case ${STAGE} in
+POST-INSTALL)
+  PRIVATE=$(ifconfig -a | grep -A 1 net1 | awk '/inet/ { print $2 }');
+  
+  if [ ! -d ${PREFIX}/share/ipython ]; then
+  
+    IPYTHONDIR=${PREFIX}/share/ipython ${PREFIX}/bin/ipython profile create --parallel --profile=default
+    timeout 4 ${PREFIX}/bin/ipcontroller --profile=default --ip=${PRIVATE} --location=${PRIVATE} --reuse --ipython-dir=${PREFIX}/share/ipython
+  
+    chown -R @SMF_USER@ ${PREFIX}/share/ipython
+    chgrp -R @SMF_GROUP@ ${PREFIX}/share/ipython
+  
+  fi
+  
+  svccfg -s py27-ipython:controller setprop config/ip=astring: ${PRIVATE}
+  
+;;
+esac
+
