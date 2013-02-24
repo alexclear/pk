@@ -10,10 +10,7 @@ POST-INSTALL)
     chown -R @SMF_USER@ ${PREFIX}/share/ipython
     chgrp -R @SMF_GROUP@ ${PREFIX}/share/ipython
   
-  fi
-  
-  svccfg -s py27-ipython:controller setprop config/ip=astring: ${PRIVATE}
-  
+  fi  
 ;;
 esac
 
