@@ -25,7 +25,7 @@
         <propval name='url' type='astring' value='tcp://127.0.0.1:59999'/>
         <propval name='exec_key' type='astring' value=''/>
         <propval name='timeout' type='integer' value='4'/>
-        <propval name='profile' type='astring' value='engine'>
+        <propval name='profile' type='astring' value='engine'/>
         <propval name='args' type='astring' value='--IPEngineApp.auto_create=True'/>
       </property_group>
       <property_group name="startd" type="framework">
