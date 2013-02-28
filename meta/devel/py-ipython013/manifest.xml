@@ -19,13 +19,14 @@
       </method_environment>
     </method_context>
     <instance name='engine' enabled='false'>
-      <exec_method name='start' type='method' exec='/opt/local/bin/ipengine --url=%{config/url} --Session.key=%{config/exec_key} --timeout=%{config/timeout} %{config/args}' timeout_seconds='60'/>
+      <exec_method name='start' type='method' exec='/opt/local/bin/ipengine --url=%{config/url} --Session.key=%{config/exec_key} --timeout=%{config/timeout} --profile=%{config/profile} %{config/args}' timeout_seconds='60'/>
       <exec_method name='stop' type='method' exec=':kill' timeout_seconds='60'/>
       <property_group name='config' type='application'>
         <propval name='url' type='astring' value='tcp://127.0.0.1:59999'/>
         <propval name='exec_key' type='astring' value=''/>
         <propval name='timeout' type='integer' value='4'/>
-        <propval name='args' type='astring' value='--profile=engine --IPEngineApp.auto_create=True'/>
+        <propval name='profile' type='astring' value='engine'
+        <propval name='args' type='astring' value='--IPEngineApp.auto_create=True'/>
       </property_group>
       <property_group name="startd" type="framework">
           <propval name="duration" type="astring" value="child"/>
